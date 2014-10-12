@@ -8,13 +8,18 @@
 class Processor
 {
 private:
-	Point m_Current;
 	static Processor* instance;
-
-public:
 	Processor();
 	~Processor();
-	static Processor* GetInstance(){}
+
+public:
+	Point m_Current;
+	static Processor* GetInstance()
+	{
+		if (!instance)
+			instance = new Processor();
+		return instance;
+	}
 
 	void Initialize();
 
