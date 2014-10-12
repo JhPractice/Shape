@@ -11,7 +11,7 @@ const int kCullum = 50;
 class Renderer
 {
 private:
-	char buffer[kRow][kCullum + 1];
+	char buffer[kRow][kCullum];
 
 	HANDLE consoleBuffer[2];
 	int currentBuffer;
