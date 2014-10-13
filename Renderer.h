@@ -5,8 +5,7 @@
 
 #include <Windows.h>
 
-const int kRow = 20;
-const int kCullum = 50;
+#include "Common.h"
 
 class Renderer
 {

@@ -64,16 +64,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Common.h" />
     <ClInclude Include="DataStore.h" />
     <ClInclude Include="point.h" />
     <ClInclude Include="Processor.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Snake.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DataStore.cpp" />
     <ClCompile Include="Processor.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="shape.cpp" />
+    <ClCompile Include="Snake.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

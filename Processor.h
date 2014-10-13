@@ -4,6 +4,7 @@
 #define _PROCESSOR_
 
 #include "point.h"
+#include "Snake.h"
 
 class Processor
 {
@@ -11,9 +12,8 @@ private:
 	static Processor* instance;
 	Processor();
 	~Processor();
-
 public:
-	Point m_Current;
+	Snake snake;
 	static Processor* GetInstance()
 	{
 		if (!instance)

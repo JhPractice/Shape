@@ -30,13 +30,15 @@ void Renderer::Initialize()
 
 void Renderer::WriteBuffer()
 {
-	Processor* processor = Processor::GetInstance();
 	DWORD charWritten = 0;
+	Processor* processor = Processor::GetInstance();
+	Snake* snake = &processor->snake;
+
 	for (int i = 0; i < kRow; i++)
 	{
 		for (int j = 0; j < kCullum; j++)
 		{
-			if (processor->m_Current.x == j && processor->m_Current.y == i)
+			if (snake->IsExist(Point(j, i)))
 				buffer[i][j] = '*';
 			else
 				buffer[i][j] = ' ';

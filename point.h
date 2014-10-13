@@ -6,8 +6,9 @@
 
 typedef struct _Point
 {
-	float x, y;
-	_Point() : x(0.f), y(0.f) {}
+	int x, y;
+	_Point() : x(0), y(0) {}
+	_Point(int _x, int _y) : x(_x), y(_y) {}
 } Point;
 
 #endif

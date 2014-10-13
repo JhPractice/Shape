@@ -27,6 +27,12 @@
     <ClInclude Include="Processor.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Snake.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="shape.cpp">
@@ -39,6 +45,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Processor.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Snake.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
