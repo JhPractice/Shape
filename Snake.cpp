@@ -34,12 +34,6 @@ bool Snake::IsExist(Point& p)
 
 bool Snake::Move(Point& p)
 {
-	for (int i = 0; i < kMaxLength; i++)
-	{
-		if (body[i].x == p.x && body[i].y == p.y)
-			return false;
-	}
-
 	head = (head+1) % kMaxLength;
 	body[head] = p;
 	return true;

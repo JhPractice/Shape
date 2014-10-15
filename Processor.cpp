@@ -37,7 +37,7 @@ bool Processor::Process()
 	if (GetAsyncKeyState(VK_DOWN))
 		newPoint.y = min(oldPoint.y + 1, kRow - 1);
 
-	if (newPoint.x != oldPoint.x || newPoint.y != oldPoint.y)
+	if ((newPoint.x != oldPoint.x || newPoint.y != oldPoint.y) && !snake.IsExist(newPoint))
 		snake.Move(newPoint);
 
 	return true;
