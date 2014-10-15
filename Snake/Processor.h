@@ -3,7 +3,6 @@
 #ifndef _PROCESSOR_
 #define _PROCESSOR_
 
-#include "point.h"
 #include "Snake.h"
 
 class Processor
