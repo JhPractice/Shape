@@ -18,80 +18,45 @@ Processor::~Processor()
 
 void Processor::Initialize()
 {
-	Point center(10, 9);
-	InitCirclePoint(innerCircle, center, 5);
-	InitCirclePoint(outerCircle, center, 8);
-	InitCrossPoint(cross, center, 5);
+	translatePoint = Point(10, 9);
+	innerCircle = Circle(5, 15);
+	outerCircle = Circle(8, 10);
+	cross = Cross(5, 12);
 }
 
 bool Processor::Process()
 {
 	if (GetAsyncKeyState(VK_ESCAPE))
 		return false;
+
+	points.clear();
+
+	static float innerCircleRotate = 0.f;
+	static float outerCircleRotate = 0.f;
+	static float crossRotate = 0.f;
+
+	for (unsigned int i = 0; i < innerCircle.points.size(); i++)
+	{
+		points.push_back(innerCircle.points[i].Rotate(innerCircleRotate) + translatePoint);
+	}
+	for (unsigned int i = 0; i < outerCircle.points.size(); i++)
+	{
+		points.push_back(outerCircle.points[i].Rotate(outerCircleRotate) + translatePoint);
+	}
+	for (unsigned int i = 0; i < cross.points.size(); i++)
+	{
+		points.push_back(cross.points[i].Rotate(crossRotate) + translatePoint);
+	}
+
+	innerCircleRotate -= 3.f;
+	outerCircleRotate += 3.f;
+	crossRotate += 3.f;
+
+	if (innerCircleRotate <= -360.f)
+		innerCircleRotate = 0.f;
+	if (outerCircleRotate >= 360.f)
+		outerCircleRotate = 0.f;
+	if (crossRotate >= 360.f)
+		crossRotate = 0.f;
 	return true;
-}
-
-void Processor::InitCirclePoint(std::vector<Point>& v, Point center, int r)
-{
-	for (int i = 0; i < 360; ++i)
-	{
-		int x = (int)round(cos(i * M_PI / 180) * r + center.x);
-		int y = (int)round(sin(i * M_PI / 180) * r + center.y);
-
-
-		if (!(x < 0 || y < 0 || x > kCullum || y > kRow))
-		{
-			bool isExist = false;
-			for (unsigned int j = 0; j < v.size(); ++j)
-			{
-				if (v[j].x == x && v[j].y == y)
-					isExist = true;
-			}
-			if (!isExist)
-				v.push_back(Point(x, y));
-		}
-	}
-}
-
-void Processor::InitCrossPoint(std::vector<Point>& v, Point center, int r)
-{
-	v.push_back(center);
-
-	for (int i = 1; i < r; i++)
-	{
-		v.push_back(Point(center.x, center.y + i));
-		v.push_back(Point(center.x, center.y - i));
-		v.push_back(Point(center.x + i, center.y));
-		v.push_back(Point(center.x - i, center.y));
-	}
-}
-
-bool Processor::IsInnerCircle(Point p)
-{
-	for (unsigned int j = 0; j < innerCircle.size(); ++j)
-	{
-		if (innerCircle[j].x == p.x && innerCircle[j].y == p.y)
-			return true;
-	}
-	return false;
-}
-
-bool Processor::IsOuterCircle(Point p)
-{
-	for (unsigned int j = 0; j < outerCircle.size(); ++j)
-	{
-		if (outerCircle[j].x == p.x && outerCircle[j].y == p.y)
-			return true;
-	}
-	return false;
-}
-
-bool Processor::IsCross(Point p)
-{
-	for (unsigned int j = 0; j < cross.size(); ++j)
-	{
-		if (cross[j].x == p.x && cross[j].y == p.y)
-			return true;
-	}
-	return false;
 }

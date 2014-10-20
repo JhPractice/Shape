@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Renderer.h"
 #include "Processor.h"
+#include <algorithm>
 
 void HideCursor(HANDLE h)
 {
@@ -33,38 +34,22 @@ void Renderer::WriteBuffer()
 	DWORD charWritten = 0;
 	Processor* processor = Processor::GetInstance();
 
-
 	for (int i = 0; i < kRow; i++)
 	{
 		for (int j = 0; j < kCullum; j++)
 		{
-			Point p(j, i);
-			if (processor->IsInnerCircle(p))
-			{
-				SetConsoleTextAttribute(consoleBuffer[currentBuffer], 15);
-				SetConsoleCursorPosition(consoleBuffer[currentBuffer], { j * 2, i });
-				WriteConsole(consoleBuffer[currentBuffer], "* ", 2, &charWritten, NULL);
-			}
-			else if (processor->IsOuterCircle(p))
-			{
-				SetConsoleTextAttribute(consoleBuffer[currentBuffer], 10);
-				SetConsoleCursorPosition(consoleBuffer[currentBuffer], { j * 2, i });
-				WriteConsole(consoleBuffer[currentBuffer], "* ", 2, &charWritten, NULL);
-			}
-			else if (processor->IsCross(p))
-			{
-				SetConsoleTextAttribute(consoleBuffer[currentBuffer], 12);
-				SetConsoleCursorPosition(consoleBuffer[currentBuffer], { j * 2, i });
-				WriteConsole(consoleBuffer[currentBuffer], "* ", 2, &charWritten, NULL);
-			}
-			else
-			{
-				SetConsoleTextAttribute(consoleBuffer[currentBuffer], 15);
-				SetConsoleCursorPosition(consoleBuffer[currentBuffer], { j * 2, i });
-				WriteConsole(consoleBuffer[currentBuffer], "  ", 2, &charWritten, NULL);
-			}
+			SetConsoleTextAttribute(consoleBuffer[currentBuffer], 15);
+			SetConsoleCursorPosition(consoleBuffer[currentBuffer], { j * 2, i });
+			WriteConsole(consoleBuffer[currentBuffer], "  ", 2, &charWritten, NULL);
 		}
+	}
 
+	for (unsigned int i = 0; i < processor->GetPoints().size(); i++)
+	{
+		ColorPoint& cp = processor->GetPoints()[i];
+		SetConsoleTextAttribute(consoleBuffer[currentBuffer], cp.colorId);
+		SetConsoleCursorPosition(consoleBuffer[currentBuffer], { cp.point.x * 2, cp.point.y });
+		WriteConsole(consoleBuffer[currentBuffer], "* ", 2, &charWritten, NULL);
 	}
 }
 

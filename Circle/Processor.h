@@ -5,6 +5,7 @@
 
 #include "Common.h"
 #include <vector>
+#include "Shape.h"
 
 class Processor
 {
@@ -13,12 +14,12 @@ private:
 	Processor();
 	~Processor();
 
-	std::vector<Point> innerCircle;
-	std::vector<Point> outerCircle;
-	std::vector<Point> cross;
+	Point translatePoint;
+	Circle innerCircle;
+	Circle outerCircle;
+	Cross cross;
 
-	void InitCirclePoint(std::vector<Point>& point, Point center, int r);
-	void InitCrossPoint(std::vector<Point>& point, Point center, int r);
+	std::vector<ColorPoint> points;
 
 public:
 	static Processor* GetInstance()
@@ -28,9 +29,7 @@ public:
 		return instance;
 	}
 
-	bool IsInnerCircle(Point p);
-	bool IsOuterCircle(Point p);
-	bool IsCross(Point p);
+	std::vector<ColorPoint>& GetPoints() { return points; }
 
 	void Initialize();
 
