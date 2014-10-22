@@ -44,12 +44,16 @@ void Renderer::WriteBuffer()
 		}
 	}
 
-	for (unsigned int i = 0; i < processor->GetPoints().size(); i++)
+	std::vector<Shape*>& shapes = processor->GetShapes();
+	for (unsigned int i = 0; i < shapes.size(); i++)
 	{
-		ColorPoint& cp = processor->GetPoints()[i];
-		SetConsoleTextAttribute(consoleBuffer[currentBuffer], cp.colorId);
-		SetConsoleCursorPosition(consoleBuffer[currentBuffer], { cp.point.x * 2, cp.point.y });
-		WriteConsole(consoleBuffer[currentBuffer], "* ", 2, &charWritten, NULL);
+		for (unsigned int j = 0; j < shapes[i]->GetPoints().size(); j++)
+		{
+			ColorPoint& cp = shapes[i]->GetPoints()[j];
+			SetConsoleTextAttribute(consoleBuffer[currentBuffer], cp.colorId);
+			SetConsoleCursorPosition(consoleBuffer[currentBuffer], { cp.point.x * 2, cp.point.y });
+			WriteConsole(consoleBuffer[currentBuffer], "* ", 2, &charWritten, NULL);
+		}
 	}
 }
 

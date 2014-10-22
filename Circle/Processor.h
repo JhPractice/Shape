@@ -10,26 +10,24 @@
 class Processor
 {
 private:
-	static Processor* instance;
+	static Processor* _instance;
 	Processor();
 	~Processor();
 
-	Point translatePoint;
-	Circle innerCircle;
-	Circle outerCircle;
-	Cross cross;
+	Point _translatePoint;
 
-	std::vector<ColorPoint> points;
+
+	std::vector<Shape*> _shapes;
 
 public:
 	static Processor* GetInstance()
 	{
-		if (!instance)
-			instance = new Processor();
-		return instance;
+		if (!_instance)
+			_instance = new Processor();
+		return _instance;
 	}
 
-	std::vector<ColorPoint>& GetPoints() { return points; }
+	std::vector<Shape*>& GetShapes() { return _shapes; }
 
 	void Initialize();
 

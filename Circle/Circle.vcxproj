@@ -65,6 +65,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="ResourceMgr.cpp" />
     <ClCompile Include="Processor.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shape.cpp" />
@@ -73,6 +74,7 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="Processor.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="ResourceMgr.h" />
     <ClInclude Include="Shape.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
