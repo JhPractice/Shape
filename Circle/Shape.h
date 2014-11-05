@@ -6,24 +6,14 @@
 #include "Common.h"
 #include <vector>
 
+
 class Shape
 {
-private:
-	float _rotationAngle;
-	Point _tranlationPoint;
-	std::vector<ColorPoint> appliedPoints;
-protected:
-	std::vector<ColorPoint> points;
 public:
-
 	Shape();
 	~Shape();
 
-	void Rotate(float angle);
-	void Translate(Point point);
-	void ApplyMatrix();
-
-	std::vector<ColorPoint>& GetPoints() { return appliedPoints; }
+	std::vector<ColorPoint> _points;
 
 	virtual void Initialize(int r, int colorId);
 };
@@ -45,5 +35,31 @@ public:
 
 	void Initialize(int r, int colorId);
 };
+
+class GameObject
+{
+private:
+	Shape* _shape;
+	Point _translation;
+	float _rotation;
+public:
+	GameObject(Shape* shape) : _shape(shape), _translation(Point(0, 0)), _rotation(0.f) {}
+	Shape* GetShape() { return _shape; }
+	Point GetTranslation() { return _translation; }
+	float GetRotation() { return _rotation; }
+	void Translate(Point translation) { _translation = _translation + translation; }
+	void Rotate(float roation)
+	{
+		_rotation += roation;
+		if (_rotation >= 360)
+			_rotation -= 360;
+		if (_rotation < 0)
+			_rotation += 360;
+	}
+};
+
+
+void Rotate(Shape* outModel, Shape* inModel, float angle);
+void Translate(Shape* outModel, Shape* inModel, Point distance);
 
 #endif

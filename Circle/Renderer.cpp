@@ -2,6 +2,8 @@
 #include "Renderer.h"
 #include "Processor.h"
 #include <algorithm>
+#include "DataSequenceMgr.h"
+#include "Shape.h"
 
 void HideCursor(HANDLE h)
 {
@@ -44,12 +46,12 @@ void Renderer::WriteBuffer()
 		}
 	}
 
-	std::vector<Shape*>& shapes = processor->GetShapes();
+	std::vector<Shape*>& shapes = DataSequenceMgr::GetInstance()->GetShapes();
 	for (unsigned int i = 0; i < shapes.size(); i++)
 	{
-		for (unsigned int j = 0; j < shapes[i]->GetPoints().size(); j++)
+		for (unsigned int j = 0; j < shapes[i]->_points.size(); j++)
 		{
-			ColorPoint& cp = shapes[i]->GetPoints()[j];
+			ColorPoint& cp = shapes[i]->_points[j];
 			SetConsoleTextAttribute(consoleBuffer[currentBuffer], cp.colorId);
 			SetConsoleCursorPosition(consoleBuffer[currentBuffer], { cp.point.x * 2, cp.point.y });
 			WriteConsole(consoleBuffer[currentBuffer], "* ", 2, &charWritten, NULL);

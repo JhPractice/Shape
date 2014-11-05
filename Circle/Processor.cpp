@@ -5,6 +5,8 @@
 #include <math.h>
 #include "ResourceMgr.h"
 
+#include "DataSequenceMgr.h"
+
 Processor* Processor::_instance = NULL;
 
 Processor::Processor()
@@ -30,15 +32,13 @@ void Processor::Initialize()
 	Shape* cross = resourceMgr->CreateInstance(ShapeType::type_Cross);
 	cross->Initialize(5, 12);
 
-	_shapes.push_back(innerCircle);
-	_shapes.push_back(outerCircle);
-	_shapes.push_back(cross);
+	_gameObjects.push_back(new GameObject(innerCircle));
+	_gameObjects.push_back(new GameObject(outerCircle));
+	_gameObjects.push_back(new GameObject(cross));
 
-	_translatePoint = Point(10, 9);
-
-	for (unsigned int i = 0; i < _shapes.size(); i++)
+	for (unsigned int i = 0; i < _gameObjects.size(); ++i)
 	{
-		_shapes[i]->Translate(_translatePoint);
+		_gameObjects[i]->Translate(Point(10, 9));
 	}
 }
 
@@ -47,13 +47,15 @@ bool Processor::Process()
 	if (GetAsyncKeyState(VK_ESCAPE))
 		return false;
 
-	_shapes[0]->Rotate(-3.f);
-	_shapes[1]->Rotate(3.f);
-	_shapes[2]->Rotate(3.f);
-
-	for (unsigned int i = 0; i < _shapes.size(); i++)
+	DataSequenceMgr::GetInstance()->Clear();
+	for (unsigned int i = 0; i < _gameObjects.size(); i++)
 	{
-		_shapes[i]->ApplyMatrix();
+		_gameObjects[i]->Rotate(i == 0 ? -3.f : 3.f);
+
+		Shape* procesedShape = new Shape();
+		Rotate(procesedShape, _gameObjects[i]->GetShape(), _gameObjects[i]->GetRotation());
+		Translate(procesedShape, procesedShape, _gameObjects[i]->GetTranslation());
+		DataSequenceMgr::GetInstance()->Append(procesedShape);
 	}
 
 	return true;

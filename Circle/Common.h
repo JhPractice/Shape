@@ -67,4 +67,5 @@ typedef struct _ColorPoint
 
 #endif
 
+
 #endif

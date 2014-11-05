@@ -5,7 +5,8 @@
 
 #include "Common.h"
 #include <vector>
-#include "Shape.h"
+
+class GameObject;
 
 class Processor
 {
@@ -14,10 +15,7 @@ private:
 	Processor();
 	~Processor();
 
-	Point _translatePoint;
-
-
-	std::vector<Shape*> _shapes;
+	std::vector<GameObject*> _gameObjects;
 
 public:
 	static Processor* GetInstance()
@@ -27,7 +25,7 @@ public:
 		return _instance;
 	}
 
-	std::vector<Shape*>& GetShapes() { return _shapes; }
+	std::vector<GameObject*>& GetGameObjects() { return _gameObjects; }
 
 	void Initialize();
 

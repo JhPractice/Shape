@@ -65,6 +65,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="DataSequenceMgr.cpp" />
     <ClCompile Include="ResourceMgr.cpp" />
     <ClCompile Include="Processor.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -72,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
+    <ClInclude Include="DataSequenceMgr.h" />
     <ClInclude Include="Processor.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceMgr.h" />
